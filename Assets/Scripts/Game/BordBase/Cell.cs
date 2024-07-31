@@ -9,6 +9,7 @@ public class Cell : MonoBehaviour, ITouchable
 
     [Inject] private Board _board;
 
+    public bool IsFillingCell { get; private set; }
     public int X { get; private set; }
     public int Y { get; private set; }
     public List<Cell> Neighbors { get; private set; } = new();
@@ -36,15 +37,26 @@ public class Cell : MonoBehaviour, ITouchable
     }
     private Item _item;
 
-
-
     public void Prepare(int x, int y)
     {
         X = x;
         Y = y;
 
+        IsFillingCell = Y == _board.Cols - 1;
         transform.localPosition = new Vector3(x, y);
+
         SetLabel();
+    }
+
+    public bool HasItem()
+    {
+        return Item != null;
+    }
+
+    public bool IsFalling()
+    {
+        //todo: update here
+        return false;
     }
 
     private void SetLabel()
