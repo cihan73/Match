@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3624fa8d6f3794d99bae5890bd0db8ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  labelText: {fileID: 0}
 --- !u!4 &310410925
 Transform:
   m_ObjectHideFlags: 0
@@ -626,6 +627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cf3ff5ed671d4f469339760e7234a97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cellParent: {fileID: 0}
 --- !u!1 &1742792455
 GameObject:
   m_ObjectHideFlags: 0
