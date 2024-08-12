@@ -20,6 +20,11 @@ public class Level : MonoBehaviour
         _itemFactory = itemFactory;
         _board = board;
         
+        
+    }
+
+    private void Start()
+    {
         GetLevelData();
         PrepareBoard();
         PrepareLevel();
