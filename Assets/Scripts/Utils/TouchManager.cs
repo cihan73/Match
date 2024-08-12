@@ -69,20 +69,20 @@ public class TouchManager : MonoBehaviour
         {
             var duration = TimeSpan.FromSeconds(firstTapDelayDuration);
             await UniTask.Delay(duration, cancellationToken: _cts.Token);
-
+            
             _canTouch = true;
         }
         catch (OperationCanceledException e)
         {
             Debug.Log(e);
         }
-    }
+    } 
 }
 
 public struct OnElementTappedSignal
 {
     public readonly ITouchable Touchable;
-
+    
     public OnElementTappedSignal(ITouchable touchable)
     {
         Touchable = touchable;

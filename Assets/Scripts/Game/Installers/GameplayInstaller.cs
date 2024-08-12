@@ -11,14 +11,26 @@ public class GameplayInstaller : ScriptableObjectInstaller<GameplayInstaller>
     {
         SignalBusInstaller.Install(Container);
 
+        Container.Bind<Board>().FromComponentInHierarchy()
+            .AsSingle();
+
+        Container.Bind<Borders>().FromComponentInHierarchy()
+            .AsSingle();
+
+        Container.Bind<ItemFactory>().FromComponentInHierarchy()
+            .AsSingle();
+
+        Container.Bind<ImageLibService>().FromComponentInHierarchy()
+            .AsSingle();
+        
         Container.BindFactory<Cell, Cell.CellFactory>()
             .FromComponentInNewPrefab(cellPrefab)
             .AsSingle();
 
-        Container.BindFactory<ItemBase, ItemBase.ItemBaseFactory>()
+        Container.BindFactory<ItemBase, ItemBase.Factory>()
             .FromComponentInNewPrefab(itemBasePrefab)
             .AsSingle();
-
+        
         Container.DeclareSignal<OnElementTappedSignal>();
         Container.DeclareSignal<OnEmptyTappedSignal>();
     }
