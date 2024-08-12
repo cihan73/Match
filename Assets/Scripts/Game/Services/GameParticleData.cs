@@ -1,18 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class GameParticleData : MonoBehaviour
+[System.Serializable]
+public struct GameParticleData
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public string id;
+    public int initialSize;
+    public int maxSize;
+    public GameParticle particle;
 }
