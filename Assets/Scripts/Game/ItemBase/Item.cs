@@ -6,9 +6,9 @@ public abstract class Item : MonoBehaviour
     {
         get => _cell;
         set
-        { 
+        {
             if (_cell == value) return;
-            
+
             var oldCell = _cell;
             _cell = value;
 
@@ -27,6 +27,7 @@ public abstract class Item : MonoBehaviour
     protected ItemType ItemType;
     protected bool CanFall = true;
 
+    private FallAnimation _fallAnimation;
     private const int BaseSortingOrder = 10;
     private SpriteRenderer _spriteRenderer;
     private ParticleSystem _comboParticle;
@@ -37,12 +38,12 @@ public abstract class Item : MonoBehaviour
     {
         return MatchType.None;
     }
-    
+
     public virtual ItemType GetItemType()
     {
         return ItemType.None;
     }
-    
+
     public virtual SpecialType GetSpecialType()
     {
         return SpecialType.None;
@@ -50,14 +51,14 @@ public abstract class Item : MonoBehaviour
 
     public void Fall()
     {
-        
+
     }
-    
+
     public void RemoveItem()
     {
         Cell.Item = null;
         //Cell = null;
-        
+
         Destroy(gameObject);
     }
 
@@ -68,15 +69,21 @@ public abstract class Item : MonoBehaviour
 
     public virtual void SetHint(int groupCount) { }
 
+    public bool IsFalling()
+    {
+        return _fallAnimation.IsFalling;
+    }
+
     protected virtual void ChangeSprite(Sprite newSprite)
     {
         _spriteRenderer.sprite = newSprite;
     }
-    
-    protected void Init(ItemBase itemBase, Sprite sprite)
+
+    protected void Prepare(ItemBase itemBase, Sprite sprite)
     {
         _spriteRenderer = AddSprite(sprite);
-        //todo: add fall anim
+        _fallAnimation = itemBase.FallAnimation;
+        _fallAnimation.Item = this;
     }
 
     protected void SetDefaultItemSprite()

@@ -11,7 +11,7 @@ public class CubeItem : Item
         {
             ItemType = itemType;
             _matchType = matchType;
-            Init(itemBase, GetSpriteForMatchType());
+            Prepare(itemBase, GetSpriteForMatchType());
         }
 
         private Sprite GetSpriteForMatchType()
