@@ -86,7 +86,7 @@ public abstract class Item : MonoBehaviour
         _fallAnimation.Item = this;
     }
 
-    protected void SetDefaultItemSprite()
+    public void SetDefaultItemSprite()
     {
         _spriteRenderer.sprite = GetDefaultItemSprite();
     }
