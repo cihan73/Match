@@ -32,5 +32,22 @@ public class FallAnimation : MonoBehaviour
     private void Update()
     {
         if (!IsFalling) return;
+
+        _currVel += _itemStatsSO.acc;
+        _currVel = _currVel >= _itemStatsSO.maxSpeed ? _itemStatsSO.maxSpeed : _currVel;
+
+        var position = this.Item.transform.position;
+        position.y -= _currVel * Time.deltaTime;
+
+        if (position.y <= _targetPos.y)
+        {
+            IsFalling = false;
+            TargetCell = null;
+            position.y = _targetPos.y;
+            _currVel = _itemStatsSO.startVel;
+        }
+
+        this.Item.transform.position = position;
+
     }
 }
