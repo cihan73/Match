@@ -1,5 +1,5 @@
-
 using Game.ItemBase;
+using Game.Services;
 using UnityEngine;
 using Zenject;
 
@@ -11,7 +11,7 @@ public class GameplayInstaller : ScriptableObjectInstaller<GameplayInstaller>
     [SerializeField] private ItemBase itemBasePrefab;
     [Space, Header("Scriptable Objects")]
     [SerializeField] private ItemStatsSO itemStatsSO;
-
+    
     public override void InstallBindings()
     {
         SignalBusInstaller.Install(Container);
@@ -27,19 +27,24 @@ public class GameplayInstaller : ScriptableObjectInstaller<GameplayInstaller>
 
         Container.Bind<ImageLibService>().FromComponentInHierarchy()
             .AsSingle();
-
+        
         Container.BindFactory<Cell, Cell.CellFactory>()
             .FromComponentInNewPrefab(cellPrefab)
             .AsSingle();
 
         Container.BindFactory<ItemBase, ItemBase.Factory>()
             .FromComponentInNewPrefab(itemBasePrefab)
+            .UnderTransformGroup("---Game---/Levels/ItemParent")
+            .AsSingle();
+
+        Container.Bind<FallAndFillManager>()
+            .FromComponentsInHierarchy()
             .AsSingle();
 
         Container.Bind<ItemStatsSO>()
             .FromInstance(itemStatsSO)
             .AsSingle();
-
+        
         Container.DeclareSignal<OnElementTappedSignal>();
         Container.DeclareSignal<OnEmptyTappedSignal>();
     }

@@ -5,7 +5,7 @@ using Zenject;
 public class ParticleServiceInstaller : ScriptableObjectInstaller<ParticleServiceInstaller>
 {
     public ParticleServiceSettings settings;
-
+    
     public override void InstallBindings()
     {
         Container.Bind<ParticleServiceSettings>().FromInstance(settings).WhenInjectedInto(typeof(ParticleService));

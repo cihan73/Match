@@ -1,3 +1,4 @@
+using Game.Services;
 using UnityEngine;
 using Zenject;
 
@@ -9,7 +10,7 @@ public enum LevelName
 public class Level : MonoBehaviour
 {
     [SerializeField] private LevelName levelName;
-    [SerializeField] private Transform itemParent;
+    [Inject] private FallAndFillManager _fallAndFillManager;
     private ItemFactory  _itemFactory;
     private Board _board;
     private LevelData _currentLevelData;
@@ -19,8 +20,6 @@ public class Level : MonoBehaviour
     {
         _itemFactory = itemFactory;
         _board = board;
-        
-        
     }
 
     private void Start()
@@ -28,6 +27,7 @@ public class Level : MonoBehaviour
         GetLevelData();
         PrepareBoard();
         PrepareLevel();
+        StartFalls();
     }
 
     private void GetLevelData()
@@ -48,7 +48,7 @@ public class Level : MonoBehaviour
             {
                 var cell = _board.Cells[x, y];
                 var itemType = _currentLevelData.GridData[x, y];
-                var item = _itemFactory.Create(itemType, itemParent);
+                var item = _itemFactory.Create(itemType);
 
                 if (item == null) continue;
 
@@ -56,5 +56,11 @@ public class Level : MonoBehaviour
                 item.transform.position = cell.transform.position;
             }
         }
+    }
+
+    private void StartFalls()
+    {
+        _fallAndFillManager.Prepare(_currentLevelData);
+        _fallAndFillManager.StartFall();
     }
 }

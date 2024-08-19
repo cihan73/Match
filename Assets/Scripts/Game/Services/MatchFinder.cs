@@ -28,16 +28,16 @@ namespace Game.Services
 
             if (_visitedCells[x, y]) return;
             if (!IsVisited(cell, matchType)) return;
-
+            
             _visitedCells[x, y] = true;
             resultCells.Add(cell);
-
+            
             var neighbours = cell.Neighbors;
             if (neighbours.Count == 0) return;
 
-            foreach (var neighbour in neighbours)
+            for (var i = 0; i < neighbours.Count; i++)
             {
-                FindMatchesRecursive(neighbour, matchType, resultCells);
+                FindMatchesRecursive(neighbours[i], matchType, resultCells);
             }
         }
 

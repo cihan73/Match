@@ -6,9 +6,9 @@ public abstract class Item : MonoBehaviour
     {
         get => _cell;
         set
-        {
+        { 
             if (_cell == value) return;
-
+            
             var oldCell = _cell;
             _cell = value;
 
@@ -38,12 +38,12 @@ public abstract class Item : MonoBehaviour
     {
         return MatchType.None;
     }
-
+    
     public virtual ItemType GetItemType()
     {
         return ItemType.None;
     }
-
+    
     public virtual SpecialType GetSpecialType()
     {
         return SpecialType.None;
@@ -51,14 +51,16 @@ public abstract class Item : MonoBehaviour
 
     public void Fall()
     {
-
+        if (!CanFall) return;
+        
+        _fallAnimation.FallTo(_cell.GetFallTarget());
     }
-
+    
     public void RemoveItem()
     {
         Cell.Item = null;
         //Cell = null;
-
+        
         Destroy(gameObject);
     }
 
@@ -68,7 +70,7 @@ public abstract class Item : MonoBehaviour
     }
 
     public virtual void SetHint(int groupCount) { }
-
+    
     public bool IsFalling()
     {
         return _fallAnimation.IsFalling;
@@ -78,7 +80,7 @@ public abstract class Item : MonoBehaviour
     {
         _spriteRenderer.sprite = newSprite;
     }
-
+    
     protected void Prepare(ItemBase itemBase, Sprite sprite)
     {
         _spriteRenderer = AddSprite(sprite);

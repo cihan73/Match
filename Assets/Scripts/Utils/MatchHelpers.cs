@@ -1,6 +1,7 @@
 public static class MatchHelpers
 {
     public const int MinMatchCount = 2;
+    public const int MinSpecialMatchCount = 5;
     
     public static bool CanMatch(int amount)
     {

@@ -181,7 +181,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5919647086755911916}
   - component: {fileID: 8434842648356985194}
-  - component: {fileID: 2884119638243023581}
+  - component: {fileID: 4540359214204312368}
   m_Layer: 0
   m_Name: Cell
   m_TagString: Untagged
@@ -218,7 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   labelText: {fileID: 3823670952809889582}
---- !u!61 &2884119638243023581
+--- !u!61 &4540359214204312368
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

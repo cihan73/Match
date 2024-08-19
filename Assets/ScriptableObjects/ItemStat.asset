@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7d8063a5a15d48589adbff9aba5f9d2, type: 3}
-  m_Name: ParticleServiceInstaller
+  m_Script: {fileID: 11500000, guid: ac7f593d9fec496b9e63bcd9dc3fb77a, type: 3}
+  m_Name: ItemStat
   m_EditorClassIdentifier: 
-  settings: {fileID: 11400000, guid: 197e97cdd42954c64bb32fa14fb9fce5, type: 2}
+  startVel: 0
+  acc: 0.4
+  maxSpeed: 20

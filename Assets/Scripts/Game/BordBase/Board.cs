@@ -8,11 +8,11 @@ using Zenject;
 public class Board : MonoBehaviour
 {
     [SerializeField] private Transform cellParent;
-
+    
     [Inject] private Cell.CellFactory _cellFactory;
     [Inject] private SignalBus _signalBus;
     [Inject] private Borders _borders;
-
+    
     public int Rows { get; private set; }
     public int Cols { get; private set; }
     public Cell[,] Cells { get; private set; }
@@ -39,7 +39,7 @@ public class Board : MonoBehaviour
 
         CreateCells();
         PrepareCells();
-
+        
         _borders.Prepare(Rows, Cols, Cells.Cast<Cell>().ToList());
     }
 
@@ -83,7 +83,7 @@ public class Board : MonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
         }
-
+        
         if (x < 0 || x >= Rows || y < 0 || y >= Cols)
         {
             return null;
@@ -91,7 +91,7 @@ public class Board : MonoBehaviour
 
         return Cells[x, y];
     }
-
+    
     private void CellTapped(OnElementTappedSignal signal)
     {
         var cell = signal.Touchable.gameObject.GetComponent<Cell>();
@@ -102,7 +102,7 @@ public class Board : MonoBehaviour
         {
             //todo: special type logic
         }
-
+        
         var matches = GetMatchingCells(cell);
         var clickedType = cell.Item.GetItemType();
 
@@ -124,10 +124,10 @@ public class Board : MonoBehaviour
             {
                 cell.Item.TryExecute();
             }
-
+            
             return;
         }
-
+        
         var matchType = cell.Item.GetMatchType();
         var neighboursOfCellGroup = FindNeighboursOfCellGroup(cells);
 
@@ -146,7 +146,7 @@ public class Board : MonoBehaviour
             }
         }
     }
-
+    
     private HashSet<Cell> FindNeighboursOfCellGroup(List<Cell> cells)
     {
         var neighbours = new HashSet<Cell>();
@@ -178,7 +178,7 @@ public class Board : MonoBehaviour
     {
         return _matchFinder.FindMatches(cell, cell.Item.GetMatchType());
     }
-
+    
     private bool IsTapValid(Cell cell)
     {
         return cell != null && cell.HasItem() && !cell.Item.IsFalling();
@@ -188,7 +188,7 @@ public class Board : MonoBehaviour
     {
         for (int x = 0; x < Rows; x++)
         {
-            for (int y = 0; y < Cols; y++)
+            for (int y = 0; y < Cols; y++) 
             {
                 var cell = _cellFactory.Create();
                 cell.transform.SetParent(cellParent);
@@ -196,7 +196,7 @@ public class Board : MonoBehaviour
             }
         }
     }
-
+    
     private void PrepareCells()
     {
         for (int x = 0; x < Rows; x++)
@@ -205,6 +205,6 @@ public class Board : MonoBehaviour
             {
                 Cells[x, y].Prepare(x, y);
             }
-        }
+        } 
     }
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8546798623169320212}
   - component: {fileID: 8015092391035118337}
-  - component: {fileID: -1212801034642114355}
+  - component: {fileID: 8399071079834210341}
   m_Layer: 0
   m_Name: ItemBase
   m_TagString: Untagged
@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ad2f94af26c749399fc12fb96018e2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallAnimation: {fileID: -1212801034642114355}
---- !u!114 &-1212801034642114355
+  fallAnimation: {fileID: 8399071079834210341}
+--- !u!114 &8399071079834210341
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -55,7 +55,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8349705360110305940}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2b5abdc973f2894da190fd567d9860b, type: 3}
+  m_Script: {fileID: 11500000, guid: 9eb2d1a9578ee4364aea4ba4dc2cda26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Item: {fileID: 0}

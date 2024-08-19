@@ -6,3 +6,5 @@ public struct GameParticleData
     public int maxSize;
     public GameParticle particle;
 }
+
+

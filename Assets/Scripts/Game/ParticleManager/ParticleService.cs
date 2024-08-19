@@ -8,11 +8,11 @@ public class ParticleService : IInitializable
     [Inject] private DiContainer _diContainer;
 
     private Dictionary<string, GameParticle.Pool> _particleMap;
-
+    
     public void Initialize()
     {
         _particleMap = new Dictionary<string, GameParticle.Pool>();
-
+        
         foreach (var particleData in settings.particles)
         {
             var pool = _diContainer.ResolveId<GameParticle.Pool>(particleData.id);
@@ -34,7 +34,7 @@ public class ParticleService : IInitializable
         Debug.LogError("Particle not found: " + id);
         return null;
     }
-
+    
     public void Despawn(string id, GameParticle particle)
     {
         if (_particleMap.TryGetValue(id, out var pool))

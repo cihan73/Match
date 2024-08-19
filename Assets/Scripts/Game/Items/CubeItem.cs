@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Assertions;
 using Zenject;
 
 public class CubeItem : Item
@@ -16,6 +17,8 @@ public class CubeItem : Item
 
         private Sprite GetSpriteForMatchType()
         {
+            Assert.IsNotNull(_imageLibService);
+            
             switch (_matchType)
             {
                 case MatchType.None:

@@ -8,11 +8,10 @@ public class ItemFactory : MonoBehaviour
     [Inject] private ItemBase.Factory _itemBaseFactory;
     [Inject] private DiContainer _diContainer;
 
-    public Item Create(ItemType itemType, Transform parent, int layerCount = 2, ItemType itemTypeCliked = ItemType.None)
+    public Item Create(ItemType itemType, int layerCount = 2, ItemType itemTypeCliked = ItemType.None)
     {
-        Assert.IsNotNull(parent, "parent is null");
         Assert.IsNotNull(_itemBaseFactory, "_itemBaseFactory is null");
-
+        
         var itemBase = _itemBaseFactory.Create();
         Item item = null;
         switch (itemType)

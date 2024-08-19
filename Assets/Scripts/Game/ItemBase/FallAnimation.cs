@@ -10,7 +10,7 @@ public class FallAnimation : MonoBehaviour
     [HideInInspector] public Item Item;
     [HideInInspector] public Cell TargetCell;
     public bool IsFalling { get; private set; }
-
+    
     private float _currVel;
     private Vector3 _targetPos;
 
@@ -22,7 +22,7 @@ public class FallAnimation : MonoBehaviour
     public void FallTo(Cell targetCell)
     {
         if (TargetCell != null && targetCell.Y >= TargetCell.Y) return;
-
+        
         TargetCell = targetCell;
         Item.Cell = TargetCell;
         _targetPos = TargetCell.transform.position;
@@ -38,7 +38,7 @@ public class FallAnimation : MonoBehaviour
 
         var position = this.Item.transform.position;
         position.y -= _currVel * Time.deltaTime;
-
+        
         if (position.y <= _targetPos.y)
         {
             IsFalling = false;
@@ -46,7 +46,7 @@ public class FallAnimation : MonoBehaviour
             position.y = _targetPos.y;
             _currVel = _itemStatsSO.startVel;
         }
-
+        
         this.Item.transform.position = position;
 
     }
