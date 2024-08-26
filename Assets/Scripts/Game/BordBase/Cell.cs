@@ -43,8 +43,9 @@ public class Cell : MonoBehaviour, ITouchable
         X = x;
         Y = y;
 
-        IsFillingCell = Y == _board.Cols - 1;
         transform.localPosition = new Vector3(x, y);
+        
+        IsFillingCell = Y == _board.Cols - 1;
         
         SetLabel();
         UpdateNeighbors();

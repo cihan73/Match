@@ -20,13 +20,34 @@ public class ParticleService : IInitializable
         }
     }
 
-    public GameParticle Spawn(string id, Vector3 position)
+    public GameParticle Spawn(string id, Vector3 position, bool autoPlay = true)
     {
         if (_particleMap.TryGetValue(id, out var pool))
         {
             var particle = pool.Spawn();
             particle.transform.position = position;
-            particle.Particle.Play();
+            if (autoPlay)
+            {
+                particle.Particle.Play();
+            }
+            particle.SetID(id);
+            return particle;
+        }
+
+        Debug.LogError("Particle not found: " + id);
+        return null;
+    }
+    
+    public GameParticle Spawn(string id, Item item, bool autoPlay = true)
+    {
+        if (_particleMap.TryGetValue(id, out var pool))
+        {
+            var particle = pool.Spawn();
+            particle.transform.position = item.transform.position;
+            if (autoPlay)
+            {
+                particle.Particle.Play();
+            }
             particle.SetID(id);
             return particle;
         }

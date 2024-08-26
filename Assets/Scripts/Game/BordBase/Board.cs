@@ -1,17 +1,23 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using Game.Services;
 using UnityEngine;
 using Zenject;
+using Random = UnityEngine.Random;
 
 public class Board : MonoBehaviour
 {
+    [SerializeField]
+    private Material mat;
     [SerializeField] private Transform cellParent;
     
     [Inject] private Cell.CellFactory _cellFactory;
     [Inject] private SignalBus _signalBus;
+    [Inject] private DiContainer _diContainer;
     [Inject] private Borders _borders;
+    [Inject] private ItemFactory _itemFactory;
     
     public int Rows { get; private set; }
     public int Cols { get; private set; }
@@ -92,6 +98,21 @@ public class Board : MonoBehaviour
         return Cells[x, y];
     }
     
+    public bool IsInBoard(int x, int y)
+    {
+        return x < Rows && x >= 0 && y < Cols && y >= 0;
+    }
+    
+    public bool IsInBoardX(int x)
+    {
+        return x < Rows && x >= 0;
+    }
+    
+    public bool IsInBoardY(int y)
+    {
+        return y < Cols && y >= 0;
+    }
+    
     private void CellTapped(OnElementTappedSignal signal)
     {
         var cell = signal.Touchable.gameObject.GetComponent<Cell>();
@@ -100,7 +121,8 @@ public class Board : MonoBehaviour
 
         if (cell.Item.GetMatchType() == MatchType.SpecialType)
         {
-            //todo: special type logic
+            ExplodeSpecialItem(cell);
+            return;
         }
         
         var matches = GetMatchingCells(cell);
@@ -112,7 +134,45 @@ public class Board : MonoBehaviour
         }
 
         ExplodeMatchingCells(cell);
-        //TryCombineMatchingCellsToSpecialItem(cell, matches, clickedType);
+        TryCombineMatchingCellsToSpecialItem(cell, matches, clickedType);
+    }
+
+    private void ExplodeSpecialItem(Cell cell)
+    {
+        var cells = _matchFinder.FindMatches(cell, cell.Item.GetMatchType());
+        if (cells.Count == 1)
+        {
+            cell.Item.TryExecute();
+        }
+        else
+        {
+            ComboService.DoComboExplosion(cells, cell, _diContainer);
+        }
+    }
+
+    private void TryCombineMatchingCellsToSpecialItem(Cell cell, List<Cell> matches, ItemType clickedType)
+    {
+        if (!MatchHelpers.CanMatch(matches.Count)) return;
+
+        if (MatchHelpers.IsRocketMatch(matches.Count))
+        {
+            var rnd = Random.Range(0, 2);
+            var item = _itemFactory.Create(rnd == 0 ? ItemType.HorizontalRocket : ItemType.VerticalRocket);
+            cell.Item = item;
+            item.transform.position = cell.transform.position;
+        }
+        else if (MatchHelpers.IsBombMatch(matches.Count))
+        {
+            var item = _itemFactory.Create(ItemType.Bomb);
+            cell.Item = item;
+            item.transform.position = cell.transform.position;
+        }
+        else if (MatchHelpers.IsDiscoMatch(matches.Count))
+        {
+            var item = _itemFactory.Create(ItemType.Disco, itemTypeCliked:clickedType);
+            cell.Item = item;
+            item.transform.position = cell.transform.position;
+        }
     }
 
     private void ExplodeMatchingCells(Cell cell)
@@ -142,7 +202,7 @@ public class Board : MonoBehaviour
         {
             if (neighbour != null && neighbour.HasItem())
             {
-                //todo: try execute by near match
+                neighbour.Item.TryExecuteByNearMatch(matchType);
             }
         }
     }

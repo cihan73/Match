@@ -34,7 +34,7 @@ namespace Game.Services
                     var matchingCells = _matchFinder.FindMatches(_board.Cells[x, y], item.GetMatchType());
 
                     SetHintSprites(matchingCells.Count, x, y);
-                    //todo: hint particle
+                    SetHintParticle(matchingCells.Count, item);
                 }
             }
         }
@@ -50,6 +50,26 @@ namespace Game.Services
                 case < MatchHelpers.MinSpecialMatchCount:
                     _board.Cells[x, y].Item.SetDefaultItemSprite();
                     break;
+            }
+        }
+
+        private void SetHintParticle(int matchCount, Item item)
+        {
+            if (matchCount >= 2 && item.GetMatchType() == MatchType.SpecialType)
+            {
+                if (!item.IsParticlePlaying())
+                {
+                    Debug.LogError("Play");
+                    _particleService.Spawn("ComboParticle", item.transform.position);
+                }
+            }
+            else
+            {
+                if (item.IsParticlePlaying())
+                {
+                    Debug.LogError("Stop");
+                    _particleService.Despawn("ComboParticle", item.HintParticle);
+                }
             }
         }
     }

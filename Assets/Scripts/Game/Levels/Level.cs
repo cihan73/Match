@@ -4,7 +4,9 @@ using Zenject;
 
 public enum LevelName
 {
-    Level_1
+    Level_1,
+    Level_2,
+    Level_CrateTest
 }
 
 public class Level : MonoBehaviour

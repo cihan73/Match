@@ -17,3 +17,4 @@ MonoBehaviour:
   itemBasePrefab: {fileID: 8015092391035118337, guid: 8c275b5b6b7444d11b6e7462394c12d4,
     type: 3}
   itemStatsSO: {fileID: 11400000, guid: 05462cc5c4fa248b79e30bef520cfae3, type: 2}
+  colorListSO: {fileID: 11400000, guid: 6e0d237600e8341038a7c9aa181054d3, type: 2}

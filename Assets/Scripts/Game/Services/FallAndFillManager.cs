@@ -83,9 +83,9 @@ namespace Game.Services
                 
                 var offsetY = .0f;
                 var targetCellBelow = cell.GetFallTarget().FirstCellBelow;
-                if (targetCellBelow != null && !targetCellBelow.HasItem())
+                if (targetCellBelow != null && targetCellBelow.HasItem())
                 {
-                    offsetY = targetCellBelow.transform.position.y + 1;
+                    offsetY = targetCellBelow.Item.transform.position.y + 1;
                 }
 
                 var position = cell.transform.position;

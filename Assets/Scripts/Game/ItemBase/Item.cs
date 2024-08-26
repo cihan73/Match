@@ -32,6 +32,7 @@ public abstract class Item : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private ParticleSystem _comboParticle;
     private Cell _cell;
+    public GameParticle HintParticle { get; private set; }
     private int _childSpriteOrder;
 
     public virtual MatchType GetMatchType()
@@ -75,6 +76,8 @@ public abstract class Item : MonoBehaviour
     {
         return _fallAnimation.IsFalling;
     }
+    
+    public virtual void TryExecuteByNearMatch(MatchType matchType) { }
 
     protected virtual void ChangeSprite(Sprite newSprite)
     {
@@ -107,5 +110,10 @@ public abstract class Item : MonoBehaviour
         spriteRenderer.sortingOrder = BaseSortingOrder + _childSpriteOrder++;
 
         return spriteRenderer;
+    }
+    
+    public bool IsParticlePlaying()
+    {
+        return HintParticle?.Particle.isPlaying ?? false;
     }
 }

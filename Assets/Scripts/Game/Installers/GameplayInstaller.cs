@@ -11,22 +11,16 @@ public class GameplayInstaller : ScriptableObjectInstaller<GameplayInstaller>
     [SerializeField] private ItemBase itemBasePrefab;
     [Space, Header("Scriptable Objects")]
     [SerializeField] private ItemStatsSO itemStatsSO;
+    [SerializeField] private ColorListSO colorListSO;
     
     public override void InstallBindings()
     {
         SignalBusInstaller.Install(Container);
 
-        Container.Bind<Board>().FromComponentInHierarchy()
-            .AsSingle();
-
-        Container.Bind<Borders>().FromComponentInHierarchy()
-            .AsSingle();
-
-        Container.Bind<ItemFactory>().FromComponentInHierarchy()
-            .AsSingle();
-
-        Container.Bind<ImageLibService>().FromComponentInHierarchy()
-            .AsSingle();
+        Container.Bind<Board>().FromComponentInHierarchy().AsSingle();
+        Container.Bind<Borders>().FromComponentInHierarchy().AsSingle();
+        Container.Bind<ItemFactory>().FromComponentInHierarchy().AsSingle();
+        Container.Bind<ImageLibService>().FromComponentInHierarchy().AsSingle();
         
         Container.BindFactory<Cell, Cell.CellFactory>()
             .FromComponentInNewPrefab(cellPrefab)
@@ -41,9 +35,8 @@ public class GameplayInstaller : ScriptableObjectInstaller<GameplayInstaller>
             .FromComponentsInHierarchy()
             .AsSingle();
 
-        Container.Bind<ItemStatsSO>()
-            .FromInstance(itemStatsSO)
-            .AsSingle();
+        Container.Bind<ItemStatsSO>().FromInstance(itemStatsSO).AsSingle();
+        Container.Bind<ColorListSO>().FromInstance(colorListSO).AsSingle();
         
         Container.DeclareSignal<OnElementTappedSignal>();
         Container.DeclareSignal<OnEmptyTappedSignal>();
