@@ -30,7 +30,7 @@ public abstract class Item : MonoBehaviour
     private FallAnimation _fallAnimation;
     private const int BaseSortingOrder = 10;
     private SpriteRenderer _spriteRenderer;
-    private ParticleSystem _comboParticle;
+    private GameParticle _comboParticle;
     private Cell _cell;
     public GameParticle HintParticle { get; private set; }
     private int _childSpriteOrder;
@@ -71,6 +71,11 @@ public abstract class Item : MonoBehaviour
     }
 
     public virtual void SetHint(int groupCount) { }
+    
+    public void SetComboParticle(GameParticle particle)
+    {
+        HintParticle = particle;
+    }
     
     public bool IsFalling()
     {
@@ -114,6 +119,6 @@ public abstract class Item : MonoBehaviour
     
     public bool IsParticlePlaying()
     {
-        return HintParticle?.Particle.isPlaying ?? false;
+        return HintParticle;
     }
 }

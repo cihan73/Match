@@ -57,18 +57,19 @@ namespace Game.Services
         {
             if (matchCount >= 2 && item.GetMatchType() == MatchType.SpecialType)
             {
-                if (!item.IsParticlePlaying())
+                if (item.HintParticle == null)
                 {
-                    Debug.LogError("Play");
-                    _particleService.Spawn("ComboParticle", item.transform.position);
+                    var fx = _particleService.Spawn("ComboParticle", item.transform.position);
+                    fx.transform.SetParent(item.transform);
+                    item.SetComboParticle(fx);
                 }
             }
             else
             {
-                if (item.IsParticlePlaying())
+                if (item.HintParticle != null)
                 {
-                    Debug.LogError("Stop");
                     _particleService.Despawn("ComboParticle", item.HintParticle);
+                    item.SetComboParticle(null);
                 }
             }
         }

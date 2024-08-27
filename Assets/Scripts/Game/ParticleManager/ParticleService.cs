@@ -61,6 +61,7 @@ public class ParticleService : IInitializable
         if (_particleMap.TryGetValue(id, out var pool))
         {
             particle.Particle.Stop();
+            particle.transform.SetParent(null);
             pool.Despawn(particle);
         }
         else
